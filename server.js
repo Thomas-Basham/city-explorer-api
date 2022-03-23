@@ -5,16 +5,17 @@
 // Requirements for server:
 const express = require('express'); 
 require('dotenv').config();
-// let data = require('./data/weather.json');
+let data = require('./data/weather.json');
 
 // We must include cors if we want to share resources over the web
-// const cors = require('cors');
+const cors = require('cors');
 
 // USE
 // Once we have required something, we have to use it. This is where we assigne the required field a variable. React does this in one step with "import." express takes 2 steps: 'require" and 'use.'
-// asdf
+
 const app = express();
-// app.use(cors());
+app.use(cors());
+
 // define PORT and validate .env file is working
 const PORT = process.env.PORT || 3002; // something is wrong if on 3002
 
@@ -33,12 +34,19 @@ app.get('/', (request, response) => {
 // Get our data
 app.get('/weather', (req, res) => { 
   try {
-  let cityName = req.query.cityName;
-  let weatherObject = data.find(cityName => data.cityName === city_name);
-  let selectedCity = new Weather(weatherObject);
-  res.send(selectedCity);
+  let citySearchQuery = req.query.searchQuery;
+  
+  let weatherObject = data.find(location => location.city_name.toLowerCase() === citySearchQuery.toLowerCase())
+  
+  let weatherData = [];
+  weatherObject.data.filter ((element) => {
+    let selectedCity = new Forecast(element);
+    weatherData.push(selectedCity); 
+  })
+
+  res.send(weatherData);
   } catch(error) {
-    next(error);
+    next(error); // SEND TO app.use down below
   }
 });
 
@@ -54,9 +62,10 @@ app.use((error, request, response, next) => {
 
 
 // CLASSES
-class Weather {
-  constructor(weatherObject) {
-    this.name = weatherObject.city_name;
+class Forecast {
+  constructor(element) {
+    this.date = element.datetime;
+    this.description = element.weather.description;
   }
 }
 
