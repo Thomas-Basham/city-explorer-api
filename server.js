@@ -13,14 +13,14 @@ const app = express();
 const cors = require('cors');
 
 // Bring in Axios
-// const axios = require('axios');
+const axios = require('axios');
 
 // import our data from json data
-let data = require('./data/weather.json');
+// let data = require('./data/weather.json');
 
 
 // bring in request
-const { require } express  = require('express');
+// const { require } express  = require('express');
 
 // USE
 // Once we have required something, we have to use it. This is where we assigne the required field a variable. React does this in one step with "import." 
@@ -41,60 +41,56 @@ app.get('/', (request, response) => {
 });
 
 // Get our data from: let data = require('./data/weather.json');
-app.get('/weather', (request, response) => { 
-  try {
-  let citySearchQuery = request.query.searchQuery;
-  
-  let weatherObject = data.find(element => element.city_name.toLowerCase() === citySearchQuery.toLowerCase())
-  
-  let weatherData = [];
-  weatherObject.data.filter ((element) => {
-    let selectedCity = new Forecast(element);
-    weatherData.push(selectedCity); 
-  })
-
-  response.send(weatherData);
-
-  } catch(error) {
-
-    next(error); // SEND TO app.use down below
-    
-  }
-});
-
-// Get our data from Weatherbit API
-// API Call for Weatherbit http://api.weatherbit.io/v2.0/current 
-// EXAMPLE REQUEST: https://api.weatherbit.io/v2.0/current?lat=35.7796&lon=-78.6382&key=API_KEY&include=minutely
-// FROM THUNDER CLIENT https://api.weatherbit.io/v2.0/current?lat=35.7796&lon=-78.6382&key=4be57259674a48259b9dbb74f75da13d&include=minutely 
-// app.get('/weatherbit', async (request, response) => {
-
+// app.get('/weather', (request, response) => { 
 //   try {
-
-//   let searchQueryCity = request.query.city_name;
+//   let citySearchQuery = request.query.searchQuery;
+  
 //   let weatherObject = data.find(element => element.city_name.toLowerCase() === citySearchQuery.toLowerCase())
-
-//   console.log(searchQuery);
-
-//   let url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${searchQueryCity}&key=4be57259674a48259b9dbb74f75da13d&days=3&lat&lon`;
-//   let weatherBitData = await axios.get(url);
-//   console.log(url);
-//   console.log(weatherBitData);
+  
 //   let weatherData = [];
 //   weatherObject.data.filter ((element) => {
 //     let selectedCity = new Forecast(element);
 //     weatherData.push(selectedCity); 
-//   });
+//   })
+
 //   response.send(weatherData);
-//   console.log(weatherBitData);
 
 //   } catch(error) {
 
 //     next(error); // SEND TO app.use down below
     
 //   }
+// });
+
+// Get our data from Weatherbit API
+// API Call for Weatherbit http://api.weatherbit.io/v2.0/current 
+// EXAMPLE REQUEST: https://api.weatherbit.io/v2.0/current?lat=35.7796&lon=-78.6382&key=API_KEY&include=minutely
+// FROM THUNDER CLIENT https://api.weatherbit.io/v2.0/current?lat=35.7796&lon=-78.6382&key=4be57259674a48259b9dbb74f75da13d&include=minutely 
+app.get('/weatherbit', async (request, response) => {
+
+  try {
+
+  let searchQueryCity = request.query.city_name;
+  
+  let url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${searchQueryCity}&key=4be57259674a48259b9dbb74f75da13d&days=3&lat&lon`;
+  let weatherBitData = await axios.get(url);
+    console.log(weatherBitData.data);
+  let weatherData = [];
+  weatherBitData.data.data.filter ((element) => {
+    let selectedCity = new Forecast(element);
+    weatherData.push(selectedCity); 
+  });
+  response.send(weatherData);
+  console.log(weatherBitData);
+
+  } catch(error) {
+
+    // next(error); // SEND TO app.use down below
+    console.log(error);
+  }
 
   
-//   });
+  });
 
 
 app.get('*', (request, response) => {
