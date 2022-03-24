@@ -18,6 +18,8 @@ const axios = require('axios');
 // import our data from json data
 // let data = require('./data/weather.json');
 
+const getWeatherBit = require('./modules/weather')
+const getMovies = require('./modules/movies')
 
 // bring in request
 // const { require } express  = require('express');
@@ -66,61 +68,15 @@ app.get('/', (request, response) => {
 // API Call for Weatherbit http://api.weatherbit.io/v2.0/current 
 // EXAMPLE REQUEST: https://api.weatherbit.io/v2.0/current?lat=35.7796&lon=-78.6382&key=API_KEY&include=minutely
 // FROM THUNDER CLIENT https://api.weatherbit.io/v2.0/current?lat=35.7796&lon=-78.6382&key=4be57259674a48259b9dbb74f75da13d&include=minutely 
-app.get('/weatherbit', async (request, response) => {
-
-  try {
-
-  let searchQueryCity = request.query.city_name;
-  
-  let url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${searchQueryCity}&key=4be57259674a48259b9dbb74f75da13d&days=3&lat&lon`;
-  let weatherBitData = await axios.get(url);
-    // console.log(weatherBitData.data);
-  let weatherData = [];
-  weatherBitData.data.data.filter ((element) => {
-    let selectedCity = new Forecast(element);
-    weatherData.push(selectedCity); 
-  });
-  response.send(weatherData);
-  console.log(weatherBitData);
-
-  } catch(error) {
-
-    // next(error); // SEND TO app.use down below
-    console.log(error);
-  }
-
-  
-  });
+app.get('/weatherbit',getWeatherBit );
 
 
   // GET OUR MOVIE DATA 
-app.get('/movies', async (request, response) => {
+app.get('/movies', getMovies);
 
-  try {
 
-  let searchQueryCity = request.query.searchQueryCity;
-  
-  let url = `https://api.themoviedb.org/3/search/movie?api_key=92af06b062b73eb59df1c5c37ccda80a&query=seattle`; //TODO change seattle to ${searchQueryCity}
-  let movieTimes = await axios.get(url);
-    console.log(moviedata.data.page.results);
-  let movieData = [];
-  movieTimes.data.results.filter ((element) => {
-    let selectedCity = new MovieTimes(element);
-    movieData.push(selectedCity); 
-  });
-  response.send(movieData);
-  console.log(movieData);
-
-  } catch(error) {
-
-    // next(error); // SEND TO app.use down below
-    console.log(error);
-  }
 
   
-  });
-
-
 app.get('*', (request, response) => {
   response.send('This page does not exist');
 });
@@ -131,24 +87,27 @@ app.use((error, request, response, next) => {
 }) 
 
 // CLASSES
-class Forecast {
-  constructor(element) {
-    this.date = element.datetime;
-    this.description = element.weather.description;
-  }
-}
+// class Forecast {
+//   constructor(element) {
+//     this.date = element.datetime;
+//     this.description = element.weather.description;
+//   }
+// }
 
-class MovieTimes {
-  constructor(element) {
-    this.date = element.datetime;
-    this.description = element.weather.description;
-  }
-}
+// class MovieTimes {
+//   constructor(element) {
+//     // this.results = element.results;  
+//     this.title = element.title; 
+//     this.released = element.release_date;
+//     this.posterPath = element.poster_path;
+    
+//     // this.description = element.weather.description;
+//   }
+// }
 
 // LISTEN
 // start the server
 // listen is an Express method that takes in a port value and a callback function
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));
-
 
 
