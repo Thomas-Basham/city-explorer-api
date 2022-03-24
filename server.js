@@ -81,7 +81,7 @@ app.get('/weatherbit', async (request, response) => {
     weatherData.push(selectedCity); 
   });
   response.send(weatherData);
-  console.log(weatherBitData);
+  // console.log(weatherBitData);
 
   } catch(error) {
 
@@ -98,17 +98,18 @@ app.get('/movies', async (request, response) => {
 
   try {
 
-  let searchQueryCity = request.query.searchQueryCity;
+  let cityQuery = request.query.city_name;
   
-  let url = `https://api.themoviedb.org/3/search/movie?api_key=92af06b062b73eb59df1c5c37ccda80a&query=seattle`; //TODO change seattle to ${searchQueryCity}// HIDE API KEY
+  let url = `https://api.themoviedb.org/3/search/movie?api_key=92af06b062b73eb59df1c5c37ccda80a&query=${cityQuery}&page=1`; //TODO change seattle to ${searchQueryCity}// HIDE API KEY
   let movieTimes = await axios.get(url);
-    console.log(url);
+    
   let movieData = [];
-  movieTimes.data.results.filter ((element) => {
+  movieTimes.data.results.forEach ((element) => {
     let selectedCity = new MovieTimes(element);
     movieData.push(selectedCity); 
   });
   response.send(movieData);
+
   console.log(movieData);
 
   } catch(error) {
@@ -139,7 +140,11 @@ class Forecast {
 
 class MovieTimes {
   constructor(element) {
-    this.results = element.results;
+    // this.results = element.results;  
+    this.title = element.title; 
+    this.released = element.release_date;
+    this.posterPath = element.poster_path;
+    
     // this.description = element.weather.description;
   }
 }
