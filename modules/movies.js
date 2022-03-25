@@ -1,6 +1,7 @@
 'use strict';
 const axios = require('axios');
 
+// Get data from TMDB
 async function getMovies (request, response) {
 
   try {
@@ -12,22 +13,21 @@ async function getMovies (request, response) {
     
   let movieData = [];
   movieTimes.data.results.forEach ((element) => {
-    let selectedCity = new MovieTimes(element);
-    movieData.push(selectedCity); 
-  });
-  response.send(movieData);
+      let selectedCity = new MovieTimes(element);
+      movieData.push(selectedCity); 
+    });
+    response.send(movieData);
 
-  console.log(movieData);
+    console.log(movieData);
 
-  } catch(error) {
+    } catch(error) {
 
-    // next(error); // SEND TO app.use down below
-    console.log(error);
+      // next(error); // SEND TO app.use down below
+      console.log(error);
+    }
   }
 
-  }
-
-
+// Class
 class MovieTimes {
   constructor(element) {
     // this.results = element.results;  
