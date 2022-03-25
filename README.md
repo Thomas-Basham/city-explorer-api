@@ -1,4 +1,4 @@
-# city-exolorer-api
+# City Expolorer API
 
 **Author**:Thomas Basham
 **Version**: 1.0.0
@@ -19,7 +19,7 @@
 WRRC LAB 07
 
 <img
-  src="public/Lab 07 WRRC.jpeg"
+  src="/public/Lab 07 WRRC.jpeg"
   style="width: 50%"
  />
 
