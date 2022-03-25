@@ -8,7 +8,7 @@ async function getMovies (request, response) {
 
   let cityQuery = request.query.city_name;
   
-  let url = `https://api.themoviedb.org/3/search/movie?api_key=92af06b062b73eb59df1c5c37ccda80a&query=${cityQuery}&page=1`; //TODO change seattle to ${searchQueryCity}// HIDE API KEY
+  let url = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${cityQuery}&page=1`; //TODO change seattle to ${searchQueryCity}// HIDE API KEY
   let movieTimes = await axios.get(url);
     
   let movieData = [];
