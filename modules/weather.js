@@ -1,6 +1,7 @@
 'use strict';
 const axios = require('axios');
 
+// Get data from Weatherbit
 async function getWeatherBit (request, response) {
 
   try {
@@ -32,10 +33,9 @@ async function getWeatherBit (request, response) {
     // next(error); // SEND TO app.use down below
     console.log(error);
   }
-
-  
   }
 
+// Class
   class Forecast {
     constructor(element) {
       this.date = element.datetime;
