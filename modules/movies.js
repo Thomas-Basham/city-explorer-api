@@ -1,41 +1,49 @@
 'use strict';
 const axios = require('axios');
 
-// Get data from TMDB
-async function getMovies (request, response) {
+let cache = require('./cache.js');
+module.exports = getMovies;
 
-  try {
 
-  let cityQuery = request.query.city_name;
-  
-  let url = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${cityQuery}&page=1`; //TODO change seattle to ${searchQueryCity}// HIDE API KEY
-  let movieTimes = await axios.get(url);
+async function getMovies(city) {
+  const key = 'movie-' + city;
+  const url = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${city}&page=1`; //TODO change seattle to ${searchQueryCity}// HIDE API KEY
     
-  let movieData = [];
-  movieTimes.data.results.forEach ((element) => {
-      let selectedCity = new MovieTimes(element);
-      movieData.push(selectedCity); 
-    });
-    response.send(movieData);
-
-    console.log(movieData);
-
-    } catch(error) {
-
-      // next(error); // SEND TO app.use down below
-      console.log(error);
-    }
+  if (cache[key] && (Date.now() - cache[key].timestamp < 50000)) {
+    console.log('Cache hit');
+  } else {
+    console.log('Cache miss');
+    cache[key] = {};
+    cache[key].timestamp = Date.now();
+    cache[key].data = await axios.get(url)
+    .then(response => parseMovies(response.data));
   }
+  
+  return cache[key].data;
+}
+
+function parseMovies(movieData) {
+  console.log(movieData);
+  try {
+    const movieSummaries = movieData.data.map(element => {
+      return new Movie(element);
+    });
+    return Promise.resolve(movieSummaries);
+  } catch (e) {
+    return Promise.reject(e);
+  }
+}
+
+
 
 // Class
-class MovieTimes {
+class Movie {
   constructor(element) {
     // this.results = element.results;  
     this.title = element.title; 
     this.released = element.release_date;
     this.posterPath = element.poster_path;
     
-    // this.description = element.weather.description;
   }
 }
 
