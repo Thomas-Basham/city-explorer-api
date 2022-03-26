@@ -19,7 +19,7 @@ app.get('/', (request, response) => {
 });
 
 app.get('/weather', weatherHandler);
-app.get('/movies', getMovies);
+app.get('/movies', movieHandler);
 
   // Error
   app.get('*', (request, response) => {
@@ -34,6 +34,16 @@ app.get('/movies', getMovies);
 function weatherHandler(request, response) {
   const  cityweather  = request.query.city;
   getWeather(cityweather)
+  .then(summaries => response.send(summaries))
+  .catch((error) => {
+    console.error(error);
+    response.status(200).send('Sorry. Something went wrong!')
+  });
+}  
+
+function movieHandler(request, response) {
+  const  city  = request.query.city;
+  getMovies(city)
   .then(summaries => response.send(summaries))
   .catch((error) => {
     console.error(error);
