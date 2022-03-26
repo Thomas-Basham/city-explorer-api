@@ -19,7 +19,7 @@
 WRRC LAB 07
 
 <img
-  src="/public/Lab 07 WRRC.jpeg"
+  src="public/Lab 07 WRRC.jpeg"
   style="width: 50%"
  />
 
@@ -48,6 +48,8 @@ React, Bootstrap, Axios
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
     Abdi Yussuf and I helped eachother through this entire project
-    Michelle 
+    Michelle helped me plan better 
     Ella helped me with lab 7
     Shout out to Keian and David for the great TA help
+    Cameron for all your notes and patience 
+    Sheyna for teaching a dense subject 
