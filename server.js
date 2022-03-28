@@ -1,54 +1,58 @@
-'use strict';
+ 'use strict';
 
-require('dotenv').config();
-const express = require('express');
+ // Dotenv
+ require('dotenv').config();
+ console.log('City Explorer Server is Running');
+
+// REQUIRE
+// Requirements for server:
+// Express takes 2 steps: 'require" and 'use.'
+const express = require('express'); 
+const app = express();
+
+// We must include cors if we want to share resources over the web
 const cors = require('cors');
 
-const getWeather = require('./modules/weather');
+// Bring in Axios
+const axios = require('axios');
+
+const getWeatherBit = require('./modules/weather')
 const getMovies = require('./modules/movies')
 
-const app = express();
+// USE
+// Once we have required something, we have to use it. This is where we assigne the required field a variable. React does this in one step with "import." 
 
 app.use(cors());
 
+// define PORT and validate .env file is working
 const PORT = process.env.PORT || 3002; // something is wrong if on 3002
+
+
+// ROUTES
+// We will write our endpoints here
 
 // Server 
 app.get('/', (request, response) => {
   response.send('Welcome to the city explorer server!');
 });
 
-app.get('/weather', weatherHandler);
-app.get('/movies', movieHandler);
+// Get our data from Weatherbit API
+app.get('/weather',getWeatherBit);
+
+  // GET OUR MOVIE DATA 
+app.get('/movies', getMovies);
 
   // Error
-  app.get('*', (request, response) => {
-    response.send('This page does not exist');
-  });
-  
-  // ERRORS
-  app.use((error, request, response, next) => {
-    response.status(500).send(error.message);
-  }) 
+app.get('*', (request, response) => {
+  response.send('This page does not exist');
+});
 
-function weatherHandler(request, response) {
-  const  cityweather  = request.query.city;
-  getWeather(cityweather)
-  .then(summaries => response.send(summaries))
-  .catch((error) => {
-    console.error(error);
-    response.status(200).send('Sorry. Something went wrong!')
-  });
-}  
+// ERRORS
+app.use((error, request, response, next) => {
+  response.status(500).send(error.message);
+}) 
 
-function movieHandler(request, response) {
-  const  city  = request.query.city;
-  getMovies(city)
-  .then(summaries => response.send(summaries))
-  .catch((error) => {
-    console.error(error);
-    response.status(200).send('Sorry. Something went wrong!')
-  });
-}  
-
-app.listen(PORT, () => console.log(`Server up on ${PORT}`));
+// LISTEN
+// start the server
+// listen is an Express method that takes in a port value and a callback function
+app.listen(PORT, () => console.log(`listening on port ${PORT}`));
