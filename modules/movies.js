@@ -16,7 +16,7 @@ async function getMovies(request, response) {
     });
     response.send(movieData);
 
-    console.log(movieData);
+    // console.log(movieData);
   } catch (error) {
     // next(error); // SEND TO app.use down below
     console.log(error);
