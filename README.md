@@ -1,4 +1,4 @@
-# City Expolorer API
+# City Explorer API
 
 **Author**:Thomas Basham
 **Version**: 1.0.0
