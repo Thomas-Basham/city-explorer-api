@@ -1,0 +1,16 @@
+'use strict';
+
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
+
+const songSchema = new Schema ({
+  artist: {type: String},
+  track: {type: String},
+  artwork: {type: String},
+  email: {type: String},
+});
+
+const songModel = mongoose.model('song', songSchema);
+
+module.exports = songModel;
