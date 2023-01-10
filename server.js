@@ -57,3 +57,5 @@ app.use((error, request, response, next) => {
 
 const PORT = process.env.PORT || 3002; // something is wrong if on 3002
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));
+
+module.exports = app;
