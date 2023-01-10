@@ -2,9 +2,9 @@
   "name": "city-exolorer-api",
   "version": "1.0.0",
   "description": "server for city explorer",
-  "main": "server.js",
+  "main": "api/server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node api/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

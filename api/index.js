@@ -19,15 +19,15 @@ db.once('open', function () {
 });
 
 // Modules
-const getWeatherBit = require("./modules/weather");
-const getMovies = require("./modules/movies");
-const getImSea = require("./modules/imSea");
-const getItunes = require("./modules/Itunes");
+const getWeatherBit = require("../modules/weather");
+const getMovies = require("../modules/movies");
+const getImSea = require("../modules/imSea");
+const getItunes = require("../modules/Itunes");
 
-const getSongs = require("./modules/getSongs");
-const postSong = require("./modules/postSong");
-const deleteSong = require("./modules/deleteSong");
-const putSong = require("./modules/putSong");
+const getSongs = require("../modules/getSongs");
+const postSong = require("../modules/postSong");
+const deleteSong = require("../modules/deleteSong");
+const putSong = require("../modules/putSong");
 
 // ROUTES
 app.get("/", (request, response) => {
