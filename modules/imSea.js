@@ -5,12 +5,16 @@ const axios = require("axios");
 async function getImSea(request, response) {
   try {
     let q = request.query.q;
-    let url = `https://imsea.herokuapp.com/api/0?q=${q}`; //TODO change seattle to ${searchQueryCity}// HIDE API KEY
-
+    const url = `https://api.unsplash.com/search/photos?query=${q}&per_page=12&client_id=${process.env.UNSPLASH_ACCESS_KEY}`;
     let imgSearch = await axios.get(url);
     let imgData = [];
     imgData.push(imgSearch.data.results);
-    response.send(imgData);
+    let urls = imgData[0].map((data) =>{
+      // console.log(data.urls.regular)
+      return data.urls.regular
+    })
+    console.log("URLS",urls)
+    response.send(urls);
     // console.log(imgData);
   } catch (error) {
     console.log(error);

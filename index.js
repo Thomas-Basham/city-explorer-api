@@ -19,15 +19,15 @@ db.once('open', function () {
 });
 
 // Modules
-const getWeatherBit = require("../modules/weather");
-const getMovies = require("../modules/movies");
-const getImSea = require("../modules/imSea");
-const getItunes = require("../modules/Itunes");
+const getWeatherBit = require("./modules/weather");
+const getMovies = require("./modules/movies");
+const getImSea = require("./modules/imSea");
+const getItunes = require("./modules/Itunes");
 
-const getSongs = require("../modules/getSongs");
-const postSong = require("../modules/postSong");
-const deleteSong = require("../modules/deleteSong");
-const putSong = require("../modules/putSong");
+const getSongs = require("./modules/getSongs");
+const postSong = require("./modules/postSong");
+const deleteSong = require("./modules/deleteSong");
+const putSong = require("./modules/putSong");
 
 // ROUTES
 app.get("/", (request, response) => {
@@ -53,9 +53,11 @@ app.get("*", (request, response) => {
 
 app.use((error, request, response, next) => {
   response.status(500).send(error.message);
+  response.header('Access-Control-Allow-Origin', '*');
+  next()
 });
 
 const PORT = process.env.PORT || 3002; // something is wrong if on 3002
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));
 
-module.exports = app;
+// module.exports = app;
