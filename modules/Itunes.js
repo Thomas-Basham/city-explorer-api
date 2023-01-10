@@ -27,7 +27,8 @@ class Song {
     this.artistName = element.artistName;
     this.trackName = element.trackName;
     this.artWork = element.artworkUrl100;
-
+    this.previewUrl = element.previewUrl
+    this.trackViewUrl = element.trackViewUrl
   }
 }
 

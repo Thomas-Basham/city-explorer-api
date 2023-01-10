@@ -17,15 +17,4 @@ async function getImSea(request, response) {
   }
 }
 
-// Class for map function
-// class Song {
-//   constructor(element) {
-//     // this.whatever = element.valueName;
-//     this.artistName = element.artistName;
-//     this.trackName = element.trackName;
-//     this.artWork = element.artworkUrl100;
-
-//   }
-// }
-
 module.exports = getImSea;

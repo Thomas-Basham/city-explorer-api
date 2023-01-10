@@ -1,5 +1,5 @@
 {
-  "name": "city-exolorer-api",
+  "name": "city-explorer-api",
   "version": "1.0.0",
   "description": "server for city explorer",
   "main": "server.js ",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bashamtg/city-exolorer-api.git"
+    "url": "git+https://github.com/bashamtg/city-explorer-api.git"
   },
   "author": "Thomas Basham",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/bashamtg/city-exolorer-api/issues"
+    "url": "https://github.com/bashamtg/city-explorer-api/issues"
   },
-  "homepage": "https://github.com/bashamtg/city-exolorer-api#readme",
+  "homepage": "https://github.com/bashamtg/city-explorer-api#readme",
   "dependencies": {
     "axios": "^0.26.1",
     "cors": "^2.8.5",

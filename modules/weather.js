@@ -32,6 +32,7 @@ async function getWeatherBit (request, response) {
     constructor(element) {
       this.date = element.datetime;
       this.description = element.weather.description;
+      this.city_name = element.city_name
     }
   }
   module.exports = getWeatherBit;
